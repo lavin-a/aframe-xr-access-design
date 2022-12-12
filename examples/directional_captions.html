@@ -29,6 +29,7 @@
 
 		<!-- Ground. -->
 		<a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
+		
 		<a-timeline id="myTimeline">
 
 			<a-timeline-animation select="#first" name="start" offset="2000"></a-timeline-animation>
@@ -70,6 +71,10 @@
 			</a-gui-label>
 		</a-entity>
 
+		<a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: [gui-interactable]"></a-entity>
+		<a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [gui-interactable]"></a-entity>
+		<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [gui-interactable]"></a-entity>
+
 		<!-- Camera + cursor. -->
 		<a-entity id="cameraRig">
 			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
@@ -85,7 +90,7 @@
 					fuse-timeout="2000" color="#ECEFF1" hover-color="#CFD8DC" active-color="#607D8B" design="ring">
 					<!-- dot, ring, reticle, cross  -->
 				</a-gui-cursor> <!-- /cursor -->
-				<a-entity id ="dnd-textbox" position="-0.2 -0.3 -1" rotation="0 15 0" text="value: ;"></a-entity>
+				<a-entity id ="dnd-textbox" position="-0.2 -0.5 -1" rotation="0 15 0" text="value: ;" pos-reader></a-entity>
 
 			</a-camera> <!-- /camera -->
 			<a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
@@ -103,7 +108,7 @@
 					margin="0 0 0.05 0" active-color="#FFEB3B" background-color="#212121" hover-color="#BBDEFB"
 					handle-color="#E3F2FD" border-color="#0D47A1" font-color="#FFFFFF">
 				</a-gui-toggle>
-				<a-gui-toggle width="2" id="dnd" height="0.5" onclick="reduce" status="true" value="DND Mode"
+				<a-gui-toggle width="2" id="dnd" height="0.5" onclick="dnd" status="true" value="DND Mode"
 					margin="0 0 0.05 0" active-color="#FFEB3B" background-color="#212121" hover-color="#BBDEFB"
 					handle-color="#E3F2FD" border-color="#0D47A1" font-color="#FFFFFF">
 				</a-gui-toggle>

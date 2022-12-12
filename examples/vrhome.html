@@ -23,8 +23,8 @@
 			<img id="secondtask" src="images/secondtask.webp">
 			<img id="teamsettings" src="images/teamsettings.svg">
 			<img id="charged" src="images/charged.webp">
-			<img id="left" src="images/right.webp">
-			<img id="right" src="images/left.webp">
+			<img id="app" src="images/App.webp">
+			<img id="qs" src="images/QS.webp">
 			<img id="groundTexture" src="images/floor.webp">
 			<img id="skyTexture" src="images/sky.webp">
 		</a-assets>
@@ -38,9 +38,9 @@
 
 		<a-image src="#charged" position="0 4 -2" width="3" height="0.8" scale="1 1 1" rotation="30 0 0" opacity="1"
 			visible="true" class="clickable" id="taskbar"></a-image>
-		<a-image id="applib" src="#left" position="-4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 45 0"
+		<a-image id="applib" src="#app" position="-4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 45 0"
 			opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
-		<a-image id="settings" src="#right" position="4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 -45 0"
+		<a-image id="settings" src="#qs" position="4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 -45 0"
 			opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
 
 		<a-entity id="taskbar">
@@ -57,7 +57,7 @@
 			<a-entity gui-object="clickAction: social; width: 0.4; height: 0.5; depth: 0.2; label: social"
 				position="1 1 -2" rotation="0 -15 0"><a-entity
 					gltf-model="url(models/social.gltf)"></a-entity></a-entity>
-			<a-entity gui-object="clickAction: status; width: 0.2; height: 0.5; depth: 0.2; label: status"
+			<a-entity gui-object="clickAction: settings; width: 0.2; height: 0.5; depth: 0.2; label: status"
 				position="1.8 1 -2" rotation="0 -30 0"><a-entity
 					gltf-model="url(models/battery.gltf)"></a-entity></a-entity>
 		</a-entity>
@@ -71,9 +71,9 @@
 				rotation="0 0 0" opacity="1"></a-image></a-entity>
 
 		<!-- Mouse cursor so we can click on the scene with mouse or touch. -->
-		<a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: [gui-interactable]"></a-entity>
-		<a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [gui-interactable]"></a-entity>
-		<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [gui-interactable]"></a-entity>
+		<a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
+		<a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
+		<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
 
 		<!-- Camera + cursor. -->
 		<a-entity id="cameraRig" position="0 1.6 0">

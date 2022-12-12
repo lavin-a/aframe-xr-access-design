@@ -5,10 +5,11 @@ var fourth = document.getElementById("fourth");
 const parent = "parent: #camera";
 var flexbox = document.getElementById("flex");
 var tempparent = [];
-var reduceMotion;
-var dndMode;
+var reduceMotion = false;
+var dndMode = false;
 var dndTextbox = document.getElementById("dnd-textbox");
-var dndString = "";
+var dndString = "value: Conversation out of sight \n";
+var SetAttributes;
 
 const Attributes = {
     opacity: "0.8",
@@ -38,6 +39,11 @@ const Activate = {
     animation__op3: "autoplay: true",
 };
 
+const Reduced = {
+    decay: 500,
+};
+
+
 const Floatup = {
     animation__pos2: "autoplay: true",
 };
@@ -48,7 +54,15 @@ const Decay = {
 };
 
 function ActivateCaption(element) {
-
+    
+    if(reduceMotion)
+    {
+        SetAttributes = Reduced;
+    }
+    else
+    {
+        SetAttributes = Activate;
+    }
 
     //Creating space in flexbox
     var copy = element.cloneNode(false);
@@ -63,7 +77,7 @@ function ActivateCaption(element) {
 
 
     //Setting animation
-    setAttributes(element, Activate);
+    setAttributes(element, SetAttributes);
     element.removeAttribute("look-at");
 
     //Placing a copy in flexbox
@@ -96,32 +110,33 @@ function removeAttributes(element, attributes) {
 }
 
 document.querySelectorAll(".caption").forEach(element => {
-    //removeEventListener("animationcomplete__start", () => { });
+    //set initial attributes and store parent information
     setAttributes(element, Attributes);
     tempparent[element.id] = "parent: #" + element.parentElement.id;
-    element.addEventListener("inview", startanim, { once: true });
-
+    element.addEventListener("animationcomplete__start", startanim, { once: true });
+    //add inview listener to all captions
+    element.addEventListener("inview", startDnd, { once: true });
 });
+
+//activate on timeline start
+function startanim() {
+    ActivateCaption(this);
+}
 
 document.getElementById("includedScene").addEventListener("loaded", reload);
 
-
+//start button
 window.start = function () {
+    //hide start button
     document.getElementById("start").setAttribute("visible", "false");
-    if (dndMode) {
-        console.log(this.id);
-        this.classList.remove("caption");
-        this.removeAttribute("in-view");
-        this.removeEventListener("animationcomplete__start", startanim);
-        
-        document.querySelectorAll(".caption").forEach(element => {
-            element.setAttribute("in-view", '');
-            dndString += element.getAttribute("value") + "\n";
-            dndTextbox.setAttribute("value", dndString);
-        });
+    //start timeline
+    if (!dndMode) {
+        flexbox.emit("start");
     }
     else {
-        flexbox.emit("start");
+        document.querySelectorAll(".caption").forEach(element => {
+            element.setAttribute("in-view", '');
+        });
     }
 }
 
@@ -139,22 +154,37 @@ window.restart = function () {
     // });
 };
 
+
+//toggle reduce motion
 window.reduce = function () {
-    Activate.animation__pos = reduceMotion ? "autoplay: true" : "autoplay: false";
-    reduceMotion = !reduceMotion;
+   reduceMotion = !reduceMotion;
 };
 
-window.reduce = function () {
+//toggle dnd mode
+window.dnd = function () {
     dndMode = !dndMode;
 };
 
-function startanim() {
+function startDnd() {
+    //start animation for dnd inview
     ActivateCaption(this);
+    this.classList.remove("caption");
+    this.removeAttribute("in-view");
+    this.removeEventListener("animationcomplete__start", startDnd);
+
+    //move not in view to textbox
+    document.querySelectorAll(".caption").forEach(element => {
+        element.removeAttribute("in-view");
+        element.setAttribute("visible", "false");
+        updateDnd = setTimeout(function () {
+            dndString += element.getAttribute("value") + "\n";
+            dndTextbox.setAttribute("text", dndString);
+        }, 200);
+    });
 }
 
+//seamless restart implementation
 function reload() {
-    console.log(reduceMotion);
     document.getElementById("reduce").setAttribute("state", reduceMotion);
     document.getElementById("dnd").setAttribute("state", dndMode);
 }
-

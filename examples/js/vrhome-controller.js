@@ -3,6 +3,11 @@ window.apps = function () {
     element.getAttribute("visible") == true ? element.setAttribute("visible", false) : element.setAttribute("visible", true);
 }
 
+window.settings = function () {
+    element = document.getElementById("settings");
+    element.getAttribute("visible") == true ? element.setAttribute("visible", false) : element.setAttribute("visible", true);
+}
+
 window.teams = function () {
     element = document.getElementById("teamsoption");
     element.getAttribute("visible") == true ? element.setAttribute("visible", false) : element.setAttribute("visible", true);

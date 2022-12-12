@@ -88,7 +88,7 @@ if (typeof AFRAME === 'undefined') {
       var panel = document.createElement("a-entity");
       panel.setAttribute('geometry', `primitive:plane; height: ${data.labelheight}; width: ${data.labelwidth};`);
       panel.setAttribute('material', 'color:#222; shader:flat;');      
-      panel.setAttribute('position', `0 ${data.labelheight/2 + data.height/2 + 0.1} 0`); 
+      panel.setAttribute('position', `0 -${data.labelheight/2 + data.height/2 + 0.1} 0`); 
       panel.setAttribute('visible', 'false');
       panel.setAttribute('look-at', '[camera]');
       el.appendChild(panel);

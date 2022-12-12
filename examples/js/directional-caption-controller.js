@@ -7,6 +7,8 @@ var flexbox = document.getElementById("flex");
 var tempparent = [];
 var reduceMotion;
 var dndMode;
+var dndTextbox = document.getElementById("dnd-textbox");
+var dndString = "";
 
 const Attributes = {
     opacity: "0.8",
@@ -97,7 +99,7 @@ document.querySelectorAll(".caption").forEach(element => {
     //removeEventListener("animationcomplete__start", () => { });
     setAttributes(element, Attributes);
     tempparent[element.id] = "parent: #" + element.parentElement.id;
-    element.addEventListener("animationcomplete__start", startanim, { once: true });
+    element.addEventListener("inview", startanim, { once: true });
 
 });
 
@@ -107,9 +109,15 @@ document.getElementById("includedScene").addEventListener("loaded", reload);
 window.start = function () {
     document.getElementById("start").setAttribute("visible", "false");
     if (dndMode) {
+        console.log(this.id);
+        this.classList.remove("caption");
+        this.removeAttribute("in-view");
         this.removeEventListener("animationcomplete__start", startanim);
+        
         document.querySelectorAll(".caption").forEach(element => {
             element.setAttribute("in-view", '');
+            dndString += element.getAttribute("value") + "\n";
+            dndTextbox.setAttribute("value", dndString);
         });
     }
     else {

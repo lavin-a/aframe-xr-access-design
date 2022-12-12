@@ -1,0 +1,73 @@
+body {
+	font-family: 'Rubik', sans-serif;
+    background: rgba(var(--color-card), 1);
+    display: flex;
+    height: 80vh;
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(var(--color-font));
+	font-size: 22px;
+}
+
+@media(prefers-color-scheme:dark) {
+    body {
+        background: rgba(var(--color-base), 1)
+    }
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+a {
+	color: rgb(var(--color-link));
+}
+
+img {
+    width: 80px;
+    margin-bottom: 40px
+}
+
+hr {
+    margin: 40px 0
+}
+
+ul {
+	line-height: 2em;
+}
+
+footer a {
+    font-size: 20px;
+    margin: 0 10px;
+    display: inline-block;
+    color: rgb(var(--color-font));
+}
+
+@media(prefers-color-scheme: dark) {
+	.theme-automatic {
+		--color-base: 26, 27, 30;
+		--color-shadow: 32, 33, 37;
+		--color-overlay: 40, 41, 46;
+		--color-card: 32, 33, 37;
+		--color-input: 40, 41, 46;
+		--color-font: 233, 233, 233;
+		--color-font-alt: 255, 255, 255
+	}
+
+	.accent-ladesign {
+		--color-accent: 83, 92, 175;
+		--color-accent-alt: 115, 126, 231;
+		--color-accent-65: 114, 127, 253;
+	}
+}
+
+@media(prefers-color-scheme: light) {
+	.accent-ladesign {
+		--color-font: 35, 35, 35;
+		--color-accent: 103, 112, 193;
+		--color-accent-alt: 89, 98, 177;
+		--color-accent-65: 26, 40, 165;
+	}
+}

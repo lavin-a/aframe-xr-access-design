@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>A-Frame Directional Captions</title>
+	<script src="js/jsviewer.js"></script>
+	<script src="js/object-parent.js"></script>
+	<script src="js/aframe-gui.min.js"></script>
+	<script src="js/super-hands.min.js"></script>
+	<script src="js/jquery-3.6.1.min.js"></script>
+	<script src="js/custom-components.js"></script>
+	<script src="js/aframe-look-at-component.js"></script>
+	<script src="js/aframe-animation-component.min.js"></script>
+	<script src="js/aframe-animation-timeline-component.min.js"></script>
+</head>
+
+<body id="includedScene">
+	<a-scene animation-timeline__1="timeline: #myTimeline; startEvents: restart, start">
+		<a-entity></a-entity>
+		<a-assets>
+			<img id="groundTexture" src="images/floor.webp">
+			<img id="skyTexture" src="images/sky.webp">
+			<img id="labelTexture" src="images/labelTexture.webp">
+			<img id="labelTexture" src="images/labelTexture2.webp">
+		</a-assets>
+		<!-- Background sky. -->
+		<a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
+
+		<!-- Ground. -->
+		<a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
+		<a-timeline id="myTimeline">
+
+			<a-timeline-animation select="#first" name="start" offset="2000"></a-timeline-animation>
+			<a-timeline-animation select="#second" name="start" offset="1000"></a-timeline-animation>
+			<a-timeline-animation select="#third" name="start" offset="1000"></a-timeline-animation>
+			<a-timeline-animation select="#fourth" name="start" offset="1000"></a-timeline-animation>
+
+		</a-timeline>
+
+		<a-entity id="firstChar" gltf-model="url(models/male.gltf)" scale="1 1 1" position="-5 0 -5.5" rotation="0 30 0">
+			<a-gui-label id="first" class="caption" width="2" height="0.5" value="Hey there! How are you doing?"
+				margin="0 0 0.1 0" font-color="#FFFFFF" position="0 +2.5 0" rotation="0 0 0" opacity="0.8"
+				background-color="#626262" look-at="#camera">
+			</a-gui-label>
+		</a-entity>
+
+		<a-entity id="secondChar" gltf-model="url(models/female.gltf)" scale="1 1 1" position="5 0 -5.5" rotation="0 -30 0">
+			<a-gui-label id="second" class="caption" width="2" height="0.5" value="How are you?" margin="0 0 0.05 0"
+				font-color="#FFFFFF" position="0 +2.5 0" rotation="0 0 0" opacity="0.8" background-color="#626262"
+				look-at="#camera" animation__start="property: none; autoplay:false">
+			</a-gui-label>
+		</a-entity>
+
+		<a-entity id="thirdChar" gltf-model="url(models/male.gltf)" scale="1 1 1" position="-5 0 5.5" rotation="0 120 0">
+			<a-gui-label id="third" class="caption" width="2" height="0.5" value="Hello!" margin="0 0 0.05 0"
+				font-color="#FFFFFF" position="0 +2.5 0" rotation="0 0 0" opacity="0.8" background-color="#626262"
+				look-at="#camera" animation__start="property: none; autoplay:false">
+			</a-gui-label>
+		</a-entity>
+
+		<a-entity id="fourthChar" gltf-model="url(models/female2.gltf)" scale="1 1 1" position="5 0 5.5" rotation="0 -120 0">
+			<a-gui-label id="fourth" class="caption" width="2" height="0.5" value="What's up?" margin="0 0 0.05 0"
+				font-color="#FFFFFF" position="0 +2.5 0" rotation="0 0 0" opacity="0.8" background-color="#626262"
+				look-at="#camera" animation__start="property: none; autoplay:false">
+			</a-gui-label>
+		</a-entity>
+
+		<!-- Camera + cursor. -->
+		<a-entity id="cameraRig">
+			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
+			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: right"></a-entity>
+
+			<a-camera id="camera" look-controls wasd-controls>
+				<a-gui-flex-container id="flex" position="0 -0.5 -1" scale="0.3 0.3 1" flex-direction="column"
+					justify-content="flexEnd" align-items="normal" component-padding="0.1" opacity="0" width="2.5"
+					height="2">
+				</a-gui-flex-container>
+
+				<a-gui-cursor id="cursor" raycaster="objects: [gui-interactable], [gui-object]" fuse="true"
+					fuse-timeout="2000" color="#ECEFF1" hover-color="#CFD8DC" active-color="#607D8B" design="ring">
+					<!-- dot, ring, reticle, cross  -->
+				</a-gui-cursor> <!-- /cursor -->
+			</a-camera> <!-- /camera -->
+			<a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
+				component-padding="0.1" opacity="0.7" width="3.5" height="4.5" position="0 4 -6" opacity="1"
+				rotation="30 0 0" panel-color="#212121">
+				<a-gui-button width="3" id="start" height="0.75" onclick="start" value="start experience" margin="0 0 0.05 0"
+					active-color="#f44336" background-color="#212121" hover-color="#CFD8DC" border-color="#263238"
+					font-color="#FFFFFF">
+				</a-gui-button>
+				<a-gui-button width="3" height="0.75" onclick="restart" value="restart experience" margin="0 0 0.05 0"
+					active-color="#f44336" background-color="#212121" hover-color="#CFD8DC" border-color="#263238"
+					font-color="#FFFFFF">
+				</a-gui-button>
+				<a-gui-toggle width="2" id="reduce" height="0.5" onclick="reduce" value="Reduce Motion" margin="0 0 0.05 0"
+				active-color="#FFEB3B" background-color="#212121" hover-color="#BBDEFB" handle-color="#E3F2FD"
+				border-color="#0D47A1" font-color="#FFFFFF">
+			</a-gui-toggle>
+			<a-gui-toggle width="2" id="dnd" height="0.5" onclick="reduce" status="true" value="DND Mode" margin="0 0 0.05 0"
+				active-color="#FFEB3B" background-color="#212121" hover-color="#BBDEFB" handle-color="#E3F2FD"
+				border-color="#0D47A1" font-color="#FFFFFF">
+			</a-gui-toggle>
+			</a-gui-flex-container>
+		</a-entity>
+
+	</a-scene>
+
+	<script src="js/directional-caption-controller.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>A-Frame Directional Captions</title>
+
+	<script src="js/aframe.min.js"></script>
+	<script src="js/aframe-gui.min.js"></script>
+	<script src="js/object-parent.min.js"></script>
+	<script src="js/aframe-animation-component.min.js"></script>
+	<script src="js/aframe-animation-timeline-component.min.js"></script>
+</head>
+
+<body>
+	<a-scene animation-timeline__1="timeline: #myTimeline; loop: true">
+
+		<a-assets>
+			<img id="groundTexture" src="images/floor.jpg">
+			<img id="skyTexture" src="images/sky.jpg">
+		</a-assets>
+		<!-- Background sky. -->
+		<a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
+
+		<!-- Ground. -->
+		<a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
+		<!--Tracked controls. -->
+		<a-entity hand-controls="hand: left"></a-entity>
+		<a-entity hand-controls="hand: right"></a-entity>
+
+		<a-timeline id="myTimeline">
+
+			<a-timeline-animation select="#first" name="start" offset="1000"></a-timeline-animation>
+			<a-timeline-animation select="#second" name="start" offset="500"></a-timeline-animation>
+			<a-timeline-animation select="#third" name="start" offset="500"></a-timeline-animation>
+			<a-timeline-animation select="#fourth" name="start" offset="500"></a-timeline-animation>
+
+			<a-timeline-animation select="#first" name="stop" offset="10000"></a-timeline-animation>
+			<a-timeline-animation select="#second" name="stop" offset="500"></a-timeline-animation>
+			<a-timeline-animation select="#third" name="stop" offset="500"></a-timeline-animation>
+			<a-timeline-animation select="#fourth" name="stop" offset="500"></a-timeline-animation>
+
+
+
+			<!-- <a-timeline-group offset="10000">
+				<a-timeline-animation select="#first" name="scl"></a-timeline-animation>
+			<a-timeline-animation select="#first" name="pos2"></a-timeline-animation>
+
+			</a-timeline-group>
+			<a-timeline-group offset="10000">
+				<a-timeline-animation select="#first" name="rot"></a-timeline-animation>
+				<a-timeline-animation select="#first" name="op2"></a-timeline-animation>
+				<a-timeline-animation select="#first" name="pos2"></a-timeline-animation>
+			</a-timeline-group> -->
+
+		</a-timeline>
+
+		<a-entity gltf-model="url(models/male.gltf)" scale="1 1 1" position="-5 0 -5.5" rotation="0 30 0">
+			<a-gui-label id="first" width="2" height="0.5" value="Hey there!" margin="0 0 0.05 0" font-color="#0D0910"
+				position="0 +2.5 0" rotation="0 0 0" opacity="1" background-color="#C577FF"
+				animation__start="property: none; autoplay:false"
+				animation__pos="property: position; to: 0 -1 -2; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__rot="property: rotation; to: 0 +0.1 0; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__scl="property: scale; to: 0.5 0.5 1; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__op="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false"
+				animation__op2="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false;"
+				animation__op3="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false"
+				animation__pos2="property: position; to: 0 -1 -2; dur: 1000; delay: 2000; autoplay: false"
+				animation__pos3="property: position; to: 0 -0.7 -2; dur: 500; autoplay: false"
+				animation__pos4="property: position; to: 0 -0.4 -2; dur: 500; autoplay: false">
+			</a-gui-label>
+		</a-entity>
+
+		<a-entity gltf-model="url(models/female.gltf)" scale="1 1 1" position="5 0 -5.5" rotation="0 -30 0">
+			<a-gui-label id="second" width="2" height="0.5" value="How are you?" margin="0 0 0.05 0"
+				font-color="#BF360C" position="0 +2.5 0" rotation="0 0 0" opacity="1" background-color="#FFCCBC"
+				animation__start="property: none; autoplay:false"
+				animation__pos="property: position; to: 0 -1 -2; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__rot="property: rotation; to: 0 +0.1 0; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__scl="property: scale; to: 0.5 0.5 1; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__op="property: opacity; from: 1; to: 0; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false"
+				animation__op2="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false;"
+				animation__op3="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__pos2="property: position; to: 0 -1 -2; dur: 1000; delay: 2000; autoplay: false"
+				animation__pos3="property: position; to: 0 -0.7 -2; dur: 500; autoplay: false"
+				animation__pos4="property: position; to: 0 -0.4 -2; dur: 500; autoplay: false">
+			</a-gui-label>
+		</a-entity>
+
+		<a-entity gltf-model="url(models/male.gltf)" scale="1 1 1" position="-5 0 5.5" rotation="0 120 0">
+			<a-gui-label id="third" width="2" height="0.5" value="Hello!" margin="0 0 0.05 0" font-color="#0D0910"
+				position="0 +2.5 0" rotation="0 0 0" opacity="1" background-color="#C577FF"
+				animation__start="property: none; autoplay:false"
+				animation__pos="property: position; to: 0 -1 -2; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__rot="property: rotation; to: 0 +0.1 0; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__scl="property: scale; to: 0.5 0.5 1; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__op="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false"
+				animation__op2="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false;"
+				animation__op3="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__pos2="property: position; to: 0 -1 -2; dur: 1000; delay: 2000; autoplay: false"
+				animation__pos3="property: position; to: 0 -0.7 -2; dur: 500; autoplay: false"
+				animation__pos4="property: position; to: 0 -0.4 -2; dur: 500; autoplay: false">
+			</a-gui-label>
+		</a-entity>
+
+		<a-entity gltf-model="url(models/female2.gltf)" scale="1 1 1" position="5 0 5.5" rotation="0 -120 0">
+			<a-gui-label id="fourth" width="2" height="0.5" value="What's up?" margin="0 0 0.05 0"
+				font-color="#BF360C" position="0 +2.5 0" rotation="0 0 0" opacity="1" background-color="#FFCCBC"
+				animation__start="property: none; autoplay:false"
+				animation__pos="property: position; to: 0 -1 -2; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__rot="property: rotation; to: 0 +0.1 0; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__scl="property: scale; to: 0.5 0.5 1; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__op="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false"
+				animation__op2="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; delay: 200; autoplay: false;"
+				animation__op3="property: opacity; from: 1; to: 1; dur: 1000; easing: easeInOutQuint; autoplay: false"
+				animation__pos2="property: position; to: 0 -1 -2; dur: 1000; delay: 2000; autoplay: false"
+				animation__pos3="property: position; to: 0 -0.7 -2; dur: 500; autoplay: false"
+				animation__pos4="property: position; to: 0 -0.4 -2; dur: 500; autoplay: false">
+			</a-gui-label>
+		</a-entity>
+
+		<!-- Camera + cursor. -->
+		<a-entity id="cameraRig" position="0 1.6 0">
+			<a-camera id="camera" position="0 0 0">
+
+			</a-camera> <!-- /camera -->
+
+		</a-entity>
+
+	</a-scene>
+
+	<script type="text/javascript">
+		var first = document.getElementById("first");
+		first.addEventListener("animationcomplete__start", function () {
+			first.setAttribute("object-parent", "parent:#camera");
+			first.setAttribute("animation__pos", "autoplay: true");
+			first.setAttribute("animation__op", "autoplay: true");
+			first.setAttribute("animation__rot", "autoplay: true");
+			first.setAttribute("animation__scl", "autoplay: true");
+			first.setAttribute("animation__op2", "autoplay: true");
+		});
+		var second = document.getElementById("second");
+		second.addEventListener("animationcomplete__start", function () {
+			first.setAttribute("animation__pos3", "autoplay: true");
+			second.setAttribute("object-parent", "parent:#camera");
+			second.setAttribute("animation__pos", "autoplay: true");
+			second.setAttribute("animation__op", "autoplay: true");
+			second.setAttribute("animation__rot", "autoplay: true");
+			second.setAttribute("animation__scl", "autoplay: true");
+			second.setAttribute("animation__op2", "autoplay: true");
+		});
+		var third = document.getElementById("third");
+		third.addEventListener("animationcomplete__start", function () {
+			second.setAttribute("animation__pos3", "autoplay: true");
+			third.setAttribute("object-parent", "parent:#camera");
+			third.setAttribute("animation__pos", "autoplay: true");
+			third.setAttribute("animation__op", "autoplay: true");
+			third.setAttribute("animation__rot", "autoplay: true");
+			third.setAttribute("animation__scl", "autoplay: true");
+			third.setAttribute("animation__op2", "autoplay: true");
+			first.setAttribute("animation__pos4", "autoplay: true");
+			first.setAttribute("animation__op3", "autoplay: true");
+			first.parentElement.removeChild(first);
+		});
+		var fourth = document.getElementById("fourth");
+		fourth.addEventListener("animationcomplete__start", function () {
+			third.setAttribute("animation__pos3", "autoplay: true");
+			fourth.setAttribute("object-parent", "parent:#camera");
+			fourth.setAttribute("animation__pos", "autoplay: true");
+			fourth.setAttribute("animation__op", "autoplay: true");
+			fourth.setAttribute("animation__rot", "autoplay: true");
+			fourth.setAttribute("animation__scl", "autoplay: true");
+			fourth.setAttribute("animation__op2", "autoplay: true");
+			second.setAttribute("animation__pos4", "autoplay: true");
+			second.setAttribute("animation__op3", "autoplay: true");
+			second.parentElement.removeChild(second);
+		});
+	</script>
+
+</body>
+
+</html>

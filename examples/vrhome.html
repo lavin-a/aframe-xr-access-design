@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>VR Homescreen</title>
+
+	<script src="js/aframe.min.js"></script>
+	<script src="js/gui-button.js"></script>
+	<script src="js/aframe-gui.min.js"></script>
+	<script src="js/super-hands.min.js"></script>
+	<script src="js/aframe-look-at-component.js"></script>
+	<script src="js/aframe-animation-component.min.js"></script>
+	<script src="js/aframe-animation-timeline-component.min.js"></script>
+
+</head>
+
+<body>
+	<a-scene>
+		<a-assets>
+			<img id="taskbar" src="images/taskbar.webp">
+			<img id="secondtask" src="images/secondtask.webp">
+			<img id="charged" src="images/charged.webp">
+			<img id="left" src="images/right.webp">
+			<img id="right" src="images/left.webp">
+			<img id="groundTexture" src="images/floor.webp">
+			<img id="skyTexture" src="images/sky.webp">
+		</a-assets>
+		<!-- Background sky. -->
+		<a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
+
+		<!-- Ground. -->
+		<a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
+		<!-- <a-image src="#taskbar" position="0 1 -2" width="3" height="0.4" scale="1 1 1" rotation="0 0 0" opacity="1"
+			visible="true" class="clickable" id="taskbar"></a-image> -->
+		<a-image id="teamsub" src="#secondtask" position="0.8 1.5 -2.5" width="2" height="0.4" scale="1 1 1" rotation="0 0 0"
+			opacity="1" visible="false" class="clickable" id="taskbar"></a-image>
+		<a-image src="#charged" position="0 4 -2" width="3" height="0.8" scale="1 1 1" rotation="30 0 0" opacity="1"
+			visible="true" class="clickable" id="taskbar"></a-image>
+		<a-image id="applib" src="#left" position="-4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 45 0" opacity="1"
+			visible="true" class="clickable" id="taskbar"></a-image>
+		<a-image id="settings" src="#right" position="4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 -45 0" opacity="1"
+			visible="true" class="clickable" id="taskbar"></a-image>
+
+
+			<a-entity gui-object="hoverAction: apps" position="-1.2 1 -2"><a-entity gltf-model="url(models/apps.gltf)"></a-entity></a-entity>
+		<!-- <a-entity gltf-model="url(models/apps.gltf)" position="-1.2 1 -2">
+			<a-gui-button 
+				width="0.5" height="0.5"
+				onclick="apps">
+			</a-gui-button>
+		</a-entity> -->
+		<a-entity gltf-model="url(models/battery.gltf)" position="-0.8 1 -2"><a-gui-button 
+			width="0.2" height="0.5"
+			onclick="battery">
+		</a-gui-button></a-entity>
+		<a-entity gltf-model="url(models/teams.gltf)" position="0 1 -2"><a-gui-button
+			width="0.4" height="0.4"
+			onhover="teams">
+		</a-gui-button></a-entity>
+		<a-entity gltf-model="url(models/store.gltf)" position="0.45 1 -2"><a-gui-button 
+			width="0.4" height="0.4" opacity="0" position="0 0 -0.1"
+			onclick="store">
+		</a-gui-button></a-entity>
+		
+		<a-entity gltf-model="url(models/social.gltf)" position="0.9 1 -2"><a-gui-button 
+			width="0.4" height="0.4"
+			onclick="social">
+		</a-gui-button></a-entity>
+
+
+		<!-- Mouse cursor so we can click on the scene with mouse or touch. -->
+		<a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: [gui-interactable]"></a-entity>
+		<a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [gui-interactable]"></a-entity>
+		<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [gui-interactable]"></a-entity>
+
+		<!-- Camera + cursor. -->
+		<a-entity id="cameraRig" position="0 1.6 0">
+			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
+			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: right"></a-entity>
+			<a-camera look-controls wasd-controls position="0 0 0">
+				<a-gui-cursor id="cursor" raycaster="objects: [gui-interactable], [gui-object]" fuse="true" fuse-timeout="2000"
+					color="#ECEFF1" hover-color="#CFD8DC" active-color="#607D8B" design="ring">
+					<!-- dot, ring, reticle, cross  -->
+				</a-gui-cursor> <!-- /cursor -->
+			</a-camera> <!-- /camera -->
+		</a-entity>
+
+	</a-scene>
+
+	<script type="text/javascript">
+
+
+
+		window.apps= function () {
+			console.log("apps");
+			document.getElementById("applib").getAttribute("visible") == true ? document.getElementById("applib").setAttribute("visible", false) : document.getElementById("applib").setAttribute("visible", true);
+		}
+
+		window.battery= function () {
+			document.getElementById("settings").getAttribute("visible") == true ? document.getElementById("settings").setAttribute("visible", false) : document.getElementById("settings").setAttribute("visible", true);
+		}
+
+		window.teams = function () {
+			console.log("teams");
+			document.getElementById("teamsub").getAttribute("visible") == true ? document.getElementById("teamsub").setAttribute("visible", false) : document.getElementById("teamsub").setAttribute("visible", true);
+		}
+
+
+
+	</script>
+
+</body>
+
+</html>

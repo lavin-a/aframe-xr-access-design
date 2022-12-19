@@ -5,10 +5,8 @@
 	<meta charset="utf-8">
 	<title>VR Homescreen</title>
 	<script src="js/aframe.min.js"></script>
-	<script src="js/aframe.min.js.map"></script>
 	<script src="js/gui-button.js"></script>
 	<script src="js/aframe-gui.min.js"></script>
-	<script src="js/super-hands.min.js"></script>
 	<script src="js/custom-components.js"></script>
 	<script src="js/vrhome-controller.js"></script>
 	<script src="js/aframe-look-at-component.js"></script>
@@ -36,11 +34,9 @@
 
 		<!-- Ground. -->
 		<a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
-		<!-- <a-image src="#taskbar" position="0 1 -2" width="3" height="0.4" scale="1 1 1" rotation="0 0 0" opacity="1"
-			visible="true" class="clickable" id="taskbar"></a-image> -->
 
-		<a-image src="#charged" position="0 4 -2" width="3" height="0.8" scale="0.5 0.5 0.5" rotation="30 0 0" opacity="1"
-			visible="true" class="clickable" id="taskbar"></a-image>
+		<a-image src="#charged" position="0 4 -2" width="3" height="0.8" scale="0.5 0.5 0.5" rotation="30 0 0"
+			opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
 
 
 		<a-entity id="taskbar" scale="0.5 0.5 0.5" position="0 0.3 -1">
@@ -77,13 +73,12 @@
 
 		<a-entity id="teamsoption"
 			gui-object="clickAction: secondtask; hoverAction: secondtaskhighlight; width: 2; height: 0.4; depth: 0.1;"
-			position="0 1.2 -2.5" visible="false"><a-image id="teamsoptionimg" src="#secondtask" width="2"
-				height="0.4" scale="0.7 0.7 0.7" rotation="0 0 0" opacity="0.5"></a-image></a-entity>
+			position="0 1.2 -2.5" visible="false"><a-image id="teamsoptionimg" src="#secondtask" width="2" height="0.4"
+				scale="0.7 0.7 0.7" rotation="0 0 0" opacity="0.5"></a-image></a-entity>
 
-		<a-entity id="teamsettingspanel"
-			gui-object="clickAction: secondtask; width: 2; height: 0.4; depth: 0.1;" position="0 2 -2.4"
-			visible="false"><a-image src="#teamsettings" width="6" height="2.3" scale="0.7 0.7 0.7" rotation="0 0 0"
-				opacity="1"></a-image></a-entity>
+		<a-entity id="teamsettingspanel" gui-object="clickAction: secondtask; width: 2; height: 0.4; depth: 0.1;"
+			position="0 2 -2.4" visible="false"><a-image src="#teamsettings" width="6" height="2.3" scale="0.7 0.7 0.7"
+				rotation="0 0 0" opacity="1"></a-image></a-entity>
 
 
 		<a-entity id="applib" visible="true" position="-1.8 1.3 -0.5" rotation="0 60 0" scale="0.5 0.5 0.5" pos-reader="enabled: true; dimension: y; threshold: 0.7; threshold2: 0.45; offset: 0.2; maxDist: 3.8;
@@ -108,7 +103,8 @@
 
 		</a-entity>
 
-		<a-entity id="settings" visible="true" position="1.8 1.3 -0.5" rotation="0 -60 0" scale="0.5 0.5 0.5" pos-reader="enabled: true; dimension: y; threshold: -0.45; threshold2: -0.7; offset: 0.3; maxDist: 3.8;
+		<a-entity id="settings" visible="true" position="1.8 1.3 -0.5" rotation="0 -60 0" scale="0.5 0.5 0.5"
+			pos-reader="enabled: true; dimension: y; threshold: -0.45; threshold2: -0.7; offset: 0.3; maxDist: 3.8;
 					attr: position; value: 1 1.2 -1; value2: 1.8 1.3 -0.5;
 					attr3: scale; value3: 0.4 0.4 0.4; value4: 0.5 0.5 0.5;
 					attr5: rotation; value5: 0 -45 0; value6: 0 -60 0;">
@@ -130,12 +126,6 @@
 			</a-gui-icon-label-button>
 
 		</a-entity>
-
-
-		<!-- <a-entity id="settings" visible="true" position="3.2 2 0.5" rotation="0 -60 0" scale="1 1 1" 
-		><a-image src="#qs" width="3.2" height="2.8" scale="1 1 1"
-				rotation="0 0 0" position="0.15 0.5 0" scale="1 1 1" opacity="1" visible="true" class="clickable"
-				id="taskbar"></a-image></a-entity> -->
 
 
 

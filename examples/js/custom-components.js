@@ -200,7 +200,7 @@ AFRAME.registerComponent('pos-reader', {
     down = new THREE.Quaternion();
     position = new THREE.Vector3();
     position2 = new THREE.Vector3();
-  
+
     angle = 0;
   },
   update: function () {
@@ -249,11 +249,8 @@ AFRAME.registerComponent('pos-reader', {
     }
     var dist = distance(el.object3D.getWorldPosition(position), el.sceneEl.camera.getWorldPosition(position2));
     if (!el.sceneEl.camera || !enabled) {
-      document.getElementById("debug").setAttribute("text", "value: nope;");
-
     }
     else {
-      document.getElementById("debug").setAttribute("text", "value: cam: "+this.el.sceneEl.camera.name+" angle: "+ angle + " dist: " + dist+";");
       if (angle < threshold && angle > threshold2 && dist < maxDist) {
         el.setAttribute(attr, value);
         if (attr3 != '') {
@@ -264,7 +261,7 @@ AFRAME.registerComponent('pos-reader', {
         }
 
       }
-      else if (angle > threshold+offset || angle < threshold2-offset || dist >= maxDist) {
+      else if (angle > threshold + offset || angle < threshold2 - offset || dist >= maxDist) {
         el.setAttribute(attr, value2);
         if (attr3 != '') {
           el.setAttribute(attr3, value4);

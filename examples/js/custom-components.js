@@ -140,52 +140,165 @@ AFRAME.registerComponent('pos-reader', {
     },
     yoffset: {
       default: 0
+    },
+    dimension: {
+      default: 'x'
+    },
+    threshold: {
+      default: -0.2
+    },
+    threshold2: {
+      default: -0.5
+    },
+    attr: {
+      default: 'visible'
+    },
+    attr2: {
+      default: ''
+    },
+    value: {
+      default: 'true'
+    },
+    value2: {
+      default: 'false'
+    },
+    attr3: {
+      default: ''
+    },
+    attr4: {
+      default: ''
+    },
+    value3: {
+      default: 'true'
+    },
+    value4: {
+      default: 'false'
+    },
+    attr5: {
+      default: ''
+    },
+    attr6: {
+      default: ''
+    },
+    value5: {
+      default: 'true'
+    },
+    value6: {
+      default: 'false'
+    },
+    offset: {
+      default: 0
+    },
+    maxDist: {
+      default: 100
+    },
+    enabled: {
+      default: true
     }
   },
   init: function () {
     down = new THREE.Quaternion();
     position = new THREE.Vector3();
-
+    position2 = new THREE.Vector3();
+  
+    angle = 0;
   },
   update: function () {
 
   },
   tick: function () {
-    if (!this.el.sceneEl.camera) {
+    const el = this.el;
+    dimension = this.data.dimension;
+    threshold = this.data.threshold;
+    threshold2 = this.data.threshold2;
+    attr = this.data.attr;
+    attr2 = this.data.attr2;
+    value = this.data.value;
+    value2 = this.data.value2;
+    attr3 = this.data.attr3;
+    attr4 = this.data.attr4;
+    value3 = this.data.value3;
+    value4 = this.data.value4;
+    attr5 = this.data.attr5;
+    attr6 = this.data.attr6;
+    value5 = this.data.value5;
+    value6 = this.data.value6;
+    offset = this.data.offset;
+    maxDist = this.data.maxDist;
+    enabled = this.data.enabled;
+    if (attr2 != '') {
+      value = attr2 + ': ' + value;
+      value2 = attr2 + ': ' + value2;
+    }
+    if (attr4 != '') {
+      value3 = attr4 + ': ' + value3;
+      value4 = attr4 + ': ' + value4;
+    }
+    if (attr6 != '') {
+      value5 = attr6 + ': ' + value5;
+      value6 = attr6 + ': ' + value6;
+    }
+    if (dimension == 'x') {
+      angle = el.sceneEl.camera.getWorldQuaternion(down).x;
+    }
+    else if (dimension == 'y') {
+      angle = el.sceneEl.camera.getWorldQuaternion(down).y;
+    }
+    else if (dimension == 'z') {
+      angle = el.sceneEl.camera.getWorldQuaternion(down).z;
+    }
+    var dist = distance(el.object3D.getWorldPosition(position), el.sceneEl.camera.getWorldPosition(position2));
+    if (!el.sceneEl.camera || !enabled) {
+      document.getElementById("debug").setAttribute("text", "value: nope;");
+
     }
     else {
-      if (this.el.sceneEl.camera.getWorldQuaternion(down).x < -0.2) {
-        this.el.setAttribute('visible', true);
+      document.getElementById("debug").setAttribute("text", "value: cam: "+this.el.sceneEl.camera.name+" angle: "+ angle + " dist: " + dist+";");
+      if (angle < threshold && angle > threshold2 && dist < maxDist) {
+        el.setAttribute(attr, value);
+        if (attr3 != '') {
+          el.setAttribute(attr3, value3);
+        }
+        if (attr5 != '') {
+          el.setAttribute(attr5, value5);
+        }
+
       }
-      else {
-        this.el.setAttribute('visible', false);
+      else if (angle > threshold+offset || angle < threshold2-offset || dist >= maxDist) {
+        el.setAttribute(attr, value2);
+        if (attr3 != '') {
+          el.setAttribute(attr3, value4);
+        }
+        if (attr5 != '') {
+          el.setAttribute(attr5, value6);
+        }
       }
 
 
-      // this.el.object3D.getWorldPosition(position);
-      // this.initHeight = Math.round(this.el.sceneEl.camera.getWorldPosition().y * 100) / 100;
+      // el.object3D.getWorldPosition(position);
+      // this.initHeight = Math.round(el.sceneEl.camera.getWorldPosition().y * 100) / 100;
 
       // this.yaxis = new THREE.Vector3(0, 1, 0);
       // this.zaxis = new THREE.Vector3(0, 0, 1);
 
       // this.pivot = new THREE.Object3D();
-      // this.el.object3D.position.set(this.data.xoffset, this.initHeight + this.data.yoffset, this.data.zpos);
+      // el.object3D.position.set(this.data.xoffset, this.initHeight + this.data.yoffset, this.data.zpos);
 
-      // this.el.sceneEl.object3D.add(this.pivot);
-      // this.pivot.add(this.el.object3D);
-      // if (this.el.getAttribute('visible') === true) {
+      // el.sceneEl.object3D.add(this.pivot);
+      // this.pivot.add(el.object3D);
+      // if (el.getAttribute('visible') === true) {
 
       //   var direction = this.zaxis.clone();
-      //   direction.applyQuaternion(this.el.sceneEl.camera.quaternion);
+      //   direction.applyQuaternion(el.sceneEl.camera.quaternion);
       //   var ycomponent = this.yaxis.clone().multiplyScalar(direction.dot(this.yaxis));
       //   direction.sub(ycomponent);
       //   direction.normalize();
 
       //   this.pivot.quaternion.setFromUnitVectors(this.zaxis, direction);
 
-      //   var xposition = this.el.sceneEl.camera.getWorldPosition().x;
-      //   var yposition = (Math.round(this.el.sceneEl.camera.getWorldPosition().y * 100) / 100);
-      //   var zposition = this.el.sceneEl.camera.getWorldPosition().z;
+      //   var xposition = el.sceneEl.camera.getWorldPosition().x;
+      //   var yposition = (Math.round(el.sceneEl.camera.getWorldPosition().y * 100) / 100);
+      //   var zposition = el.sceneEl.camera.getWorldPosition().z;
 
       //   if (this.initHeight === yposition && this.initHeight !== 0) {
       //     yposition = 0
@@ -196,5 +309,5 @@ AFRAME.registerComponent('pos-reader', {
       //   this.pivot.position.set(xposition, yposition, zposition);
       // }
     }
-  },
-});
+  }
+})

@@ -1,3 +1,4 @@
+
 window.apps = function () {
     element = document.getElementById("applib");
     element.getAttribute("visible") == true ? element.setAttribute("visible", false) : element.setAttribute("visible", true);
@@ -22,5 +23,11 @@ window.secondtask = function () {
     element = document.getElementById("teamsettingspanel");
     element.getAttribute("visible") == true ? element.setAttribute("visible", false) : element.setAttribute("visible", true);
     document.getElementById("teamsoption").setAttribute("visible", false);
+    element = document.getElementById("teamsoptionimg");
+    element.setAttribute("opacity", 0.5);
+}
 
+window.secondtaskhighlight = function () {
+    element = document.getElementById("teamsoptionimg");
+    element.setAttribute("opacity", 1);
 }

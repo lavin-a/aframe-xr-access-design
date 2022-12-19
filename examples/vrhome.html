@@ -4,11 +4,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>VR Homescreen</title>
-
 	<script src="js/aframe.min.js"></script>
+	<script src="js/aframe.min.js.map"></script>
 	<script src="js/gui-button.js"></script>
 	<script src="js/aframe-gui.min.js"></script>
 	<script src="js/super-hands.min.js"></script>
+	<script src="js/custom-components.js"></script>
 	<script src="js/vrhome-controller.js"></script>
 	<script src="js/aframe-look-at-component.js"></script>
 	<script src="js/aframe-animation-component.min.js"></script>
@@ -21,12 +22,14 @@
 		<a-assets>
 			<img id="taskbar" src="images/taskbar.webp">
 			<img id="secondtask" src="images/secondtask.webp">
-			<img id="teamsettings" src="images/teamsettings.svg">
+			<img id="teamsettings" src="images/teamsettings.webp">
 			<img id="charged" src="images/charged.webp">
 			<img id="app" src="images/App.webp">
 			<img id="qs" src="images/QS.webp">
 			<img id="groundTexture" src="images/floor.webp">
 			<img id="skyTexture" src="images/sky.webp">
+			<img id="labelTexture" src="images/labelTexture.webp">
+			<img id="buttonTexture" src="images/buttonTexture.webp">
 		</a-assets>
 		<!-- Background sky. -->
 		<a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
@@ -36,50 +39,118 @@
 		<!-- <a-image src="#taskbar" position="0 1 -2" width="3" height="0.4" scale="1 1 1" rotation="0 0 0" opacity="1"
 			visible="true" class="clickable" id="taskbar"></a-image> -->
 
-		<a-image src="#charged" position="0 4 -2" width="3" height="0.8" scale="1 1 1" rotation="30 0 0" opacity="1"
+		<a-image src="#charged" position="0 4 -2" width="3" height="0.8" scale="0.5 0.5 0.5" rotation="30 0 0" opacity="1"
 			visible="true" class="clickable" id="taskbar"></a-image>
-		<a-image id="applib" src="#app" position="-4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 45 0"
-			opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
-		<a-image id="settings" src="#qs" position="4 2 -1" width="3" height="2.8" scale="1 1 1" rotation="0 -45 0"
-			opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
 
-		<a-entity id="taskbar">
+
+		<a-entity id="taskbar" scale="0.5 0.5 0.5" position="0 0.3 -1">
 			<a-entity gui-object="clickAction: apps; width: 0.5; height: 0.5; depth: 0.1; label: Apps"
-				position="-1.8 1 -2" rotation="0 30 0"><a-entity
-					gltf-model="url(models/apps.gltf)"></a-entity></a-entity>
-			<a-entity gui-object="clickAction: apps; width: 0.4; height: 0.5; depth: 0.2; label: Teams"
-				position="-1 1 -2" rotation="0 15 0"><a-entity
-					gltf-model="url(models/teams.gltf)"></a-entity></a-entity>
+				position="-1.8 1 -1.6" rotation="0 30 0">
+				<a-rounded width="0.6" height="0.6" position="0 0 -0.1" radius="0.1" color="#232323"
+					opacity="0.8"></a-rounded><a-entity gltf-model="url(models/apps.gltf)"></a-entity></a-entity>
+			<a-entity gui-object="clickAction: amongus; width: 0.4; height: 0.5; depth: 0.2; label: Among Us"
+				position="-1.1 1 -1.9" rotation="0 15 0">
+				<a-rounded width="0.6" height="0.6" position="0 0 -0.1" radius="0.1" color="#232323"
+					opacity="0.8"></a-rounded><a-entity gltf-model="url(models/amongus.gltf)"></a-entity></a-entity>
 			<a-entity gui-object="hoverAction: teams; width: 0.4; height: 0.5; depth: 0.2; label: Teams"
-				position="-0.3 1 -2"><a-entity gltf-model="url(models/teams.gltf)"></a-entity></a-entity>
-			<a-entity gui-object="clickAction: store; width: 0.4; height: 0.5; depth: 0.2; label: store"
-				position="0.3 1 -2"><a-entity gltf-model="url(models/store.gltf)"></a-entity></a-entity>
-			<a-entity gui-object="clickAction: social; width: 0.4; height: 0.5; depth: 0.2; label: social"
-				position="1 1 -2" rotation="0 -15 0"><a-entity
-					gltf-model="url(models/social.gltf)"></a-entity></a-entity>
-			<a-entity gui-object="clickAction: settings; width: 0.2; height: 0.5; depth: 0.2; label: status"
-				position="1.8 1 -2" rotation="0 -30 0"><a-entity
-					gltf-model="url(models/battery.gltf)"></a-entity></a-entity>
+				position="-0.35 1 -2"><a-entity gltf-model="url(models/teams.gltf)"></a-entity>
+				<a-rounded width="0.6" height="0.6" position="0 0 -0.1" radius="0.1" color="#232323"
+					opacity="0.8"></a-rounded></a-entity>
+			<a-entity gui-object="clickAction: store; width: 0.4; height: 0.5; depth: 0.2; label: Store"
+				position="0.35 1 -2"><a-entity gltf-model="url(models/store.gltf)"></a-entity>
+				<a-rounded width="0.6" height="0.6" position="0 0 -0.1" radius="0.1" color="#232323"
+					opacity="0.8"></a-entity>
+			<a-entity gui-object="clickAction: social; width: 0.4; height: 0.5; depth: 0.2; label: Social"
+				position="1.1 1 -1.9" rotation="0 -15 0">
+				<a-rounded width="0.6" height="0.6" position="0 0 -0.1" radius="0.1" color="#232323"
+					opacity="0.8"></a-rounded><a-entity gltf-model="url(models/social.gltf)"></a-entity></a-entity>
+			<a-entity gui-object="clickAction: settings; width: 0.5; height: 0.5; depth: 0.2; label: Status"
+				position="1.8 1 -1.6" rotation="0 -30 0">
+				<a-rounded width="0.6" height="0.6" position="0 0 -0.1" radius="0.1" color="#232323"
+					opacity="0.8"></a-rounded>
+				<a-entity gltf-model="url(models/battery.gltf)" position="-0.1 0 0"></a-entity>
+				<a-entity gltf-model="url(models/wifi.gltf)" position="0.1 0.10 0"></a-entity>
+				<a-entity gltf-model="url(models/bluetooth.gltf)" position="0.1 -0.10 0"></a-entity>
+
+			</a-entity>
 		</a-entity>
 
-		<a-entity id="teamsoption" gui-object="clickAction: secondtask; width: 2; height: 0.4; depth: 0.1; label: Teams"
-			position="0.8 1.5 -2.5" visible="false"><a-image src="#secondtask" width="2" height="0.4" scale="1 1 1"
-				rotation="0 0 0" opacity="1"></a-image></a-entity>
+		<a-entity id="teamsoption"
+			gui-object="clickAction: secondtask; hoverAction: secondtaskhighlight; width: 2; height: 0.4; depth: 0.1;"
+			position="0 1.2 -2.5" visible="false"><a-image id="teamsoptionimg" src="#secondtask" width="2"
+				height="0.4" scale="0.7 0.7 0.7" rotation="0 0 0" opacity="0.5"></a-image></a-entity>
 
-		<a-entity id="teamsettingspanel" gui-object="clickAction: secondtask; width: 2; height: 0.4; depth: 0.1; label: Teams"
-			position="0 2.5 -2.4" visible="false"><a-image src="#teamsettings" width="6" height="2.3" scale="1 1 1"
-				rotation="0 0 0" opacity="1"></a-image></a-entity>
+		<a-entity id="teamsettingspanel"
+			gui-object="clickAction: secondtask; width: 2; height: 0.4; depth: 0.1;" position="0 2 -2.4"
+			visible="false"><a-image src="#teamsettings" width="6" height="2.3" scale="0.7 0.7 0.7" rotation="0 0 0"
+				opacity="1"></a-image></a-entity>
+
+
+		<a-entity id="applib" visible="true" position="-1.8 1.3 -0.5" rotation="0 60 0" scale="0.5 0.5 0.5" pos-reader="enabled: true; dimension: y; threshold: 0.7; threshold2: 0.45; offset: 0.2; maxDist: 3.8;
+					attr: position; value: -1 1.2 -1; value2: -1.8 1.3 -0.5;
+					attr3: scale; value3: 0.4 0.4 0.4; value4: 0.5 0.5 0.5;
+					attr5: rotation; value5: 0 45 0; value6: 0 60 0;">
+			<a-image src="#app" width="3.2" height="2.8" scale="1 1 1" rotation="0 0 0" position="0.15 0.5 0"
+				opacity="1" class="clickable"></a-image>
+			<a-entity gui-object="clickAction: searchApps; width: 1.7; height: 0.4; depth: 0.2;"
+				position="-0.6 -1.2 0"><a-image id="search" src="#buttonTexture" width="1.7" height="0.4" scale="1 1 1"
+					opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
+				<a-entity position="-0.6 0 0" gltf-model="url(models/search.gltf)"></a-entity>
+				<a-text value="Search app library" position="-0.4 0 0" width="3"></a-text></a-entity>
+
+			<a-entity gui-object="clickAction: search; width: 1.4; height: 0.4; depth: 0.2;"
+				position="1.05 -1.2 0"><a-image id="sort" src="#buttonTexture" width="1.4" height="0.4" scale="1 1 1"
+					opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
+				<a-entity position="0.5 0 0" gltf-model="url(models/sort.gltf)"></a-entity>
+				<a-text value="Sort by Recent" position="-0.6 0 0" width="3"></a-text></a-entity>
+
+			</a-gui-icon-label-button>
+
+		</a-entity>
+
+		<a-entity id="settings" visible="true" position="1.8 1.3 -0.5" rotation="0 -60 0" scale="0.5 0.5 0.5" pos-reader="enabled: true; dimension: y; threshold: -0.45; threshold2: -0.7; offset: 0.3; maxDist: 3.8;
+					attr: position; value: 1 1.2 -1; value2: 1.8 1.3 -0.5;
+					attr3: scale; value3: 0.4 0.4 0.4; value4: 0.5 0.5 0.5;
+					attr5: rotation; value5: 0 -45 0; value6: 0 -60 0;">
+			<a-image src="#qs" width="4" height="2.8" scale="1 1 1" rotation="0 0 0" position="0.15 0.5 0" opacity="1"
+				class="clickable"></a-image>
+
+			<a-entity gui-object="clickAction: searchSettings; width: 1.7; height: 0.4; depth: 0.2;"
+				position="-0.6 -1.2 0"><a-image id="search" src="#buttonTexture" width="1.7" height="0.4" scale="1 1 1"
+					opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
+				<a-entity position="-0.6 0 0" gltf-model="url(models/search.gltf)"></a-entity>
+				<a-text value="Search Settings" position="-0.4 0 0" width="3"></a-text></a-entity>
+
+			<a-entity gui-object="clickAction: search; width: 1.4; height: 0.4; depth: 0.2;"
+				position="1.05 -1.2 0"><a-image id="sort" src="#buttonTexture" width="1.4" height="0.4" scale="1 1 1"
+					opacity="1" visible="true" class="clickable" id="taskbar"></a-image>
+				<a-entity position="0.5 0 0" gltf-model="url(models/sort.gltf)"></a-entity>
+				<a-text value="Settings Preset" position="-0.6 0 0" width="3"></a-text></a-entity>
+
+			</a-gui-icon-label-button>
+
+		</a-entity>
+
+
+		<!-- <a-entity id="settings" visible="true" position="3.2 2 0.5" rotation="0 -60 0" scale="1 1 1" 
+		><a-image src="#qs" width="3.2" height="2.8" scale="1 1 1"
+				rotation="0 0 0" position="0.15 0.5 0" scale="1 1 1" opacity="1" visible="true" class="clickable"
+				id="taskbar"></a-image></a-entity> -->
+
+
 
 		<!-- Mouse cursor so we can click on the scene with mouse or touch. -->
-		<a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
-		<a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
-		<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
+		<a-entity id="mouseCursor" cursor="rayOrigin: mouse"
+			raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
+		<a-entity id="leftHand" laser-controls="hand: left"
+			raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
+		<a-entity id="rightHand" laser-controls="hand: right"
+			raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
 
 		<!-- Camera + cursor. -->
-		<a-entity id="cameraRig" position="0 1.6 0">
-			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
-			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: right"></a-entity>
-			<a-camera look-controls wasd-controls position="0 0 0">
+		<a-entity id="cameraRig">
+
+			<a-camera id="cam" position="0 1.6 0" look-controls wasd-controls>
 				<a-gui-cursor id="cursor" raycaster="objects: [gui-interactable], [gui-object]" fuse="true"
 					fuse-timeout="2000" color="#ECEFF1" hover-color="#CFD8DC" active-color="#607D8B" design="ring">
 					<!-- dot, ring, reticle, cross  -->

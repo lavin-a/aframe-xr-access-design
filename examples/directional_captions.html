@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<title>A-Frame Directional Captions</title>
 	<script src="js/aframe.min.js"></script>
+	<script src="js/aframe.min.js.map"></script>
 	<script src="js/object-parent.js"></script>
 	<script src="js/aframe-gui.min.js"></script>
 	<script src="js/super-hands.min.js"></script>
@@ -29,7 +30,7 @@
 
 		<!-- Ground. -->
 		<a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
-		
+
 		<a-timeline id="myTimeline">
 
 			<a-timeline-animation select="#first" name="start" offset="2000"></a-timeline-animation>
@@ -71,17 +72,20 @@
 			</a-gui-label>
 		</a-entity>
 
-		<a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: [gui-interactable]"></a-entity>
-		<a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [gui-interactable]"></a-entity>
-		<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [gui-interactable]"></a-entity>
+		<!-- <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [gui-interactable]"></a-entity>
+		<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [gui-interactable]"></a-entity> -->
+		<a-entity id="mouseCursor" cursor="rayOrigin: mouse"
+			raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
+		<a-entity id="leftHand" laser-controls="hand: left"
+			raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
+		<a-entity id="rightHand" laser-controls="hand: right"
+			raycaster="objects: [gui-interactable], [gui-object]"></a-entity>
 
 		<!-- Camera + cursor. -->
 		<a-entity id="cameraRig">
-			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
-			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: right"></a-entity>
 
-			<a-camera id="camera" look-controls wasd-controls>
-				<a-gui-flex-container id="flex" position="0 -0.5 -1" scale="0.3 0.3 1" flex-direction="column"
+			<a-camera id="camera" position="0 1.6 0" look-controls wasd-controls>
+				<a-gui-flex-container id="flex" position="0 -0.2 -1" scale="0.3 0.3 1" flex-direction="column"
 					justify-content="flexEnd" align-items="normal" component-padding="0.1" opacity="0" width="2.5"
 					height="2">
 				</a-gui-flex-container>
@@ -90,7 +94,15 @@
 					fuse-timeout="2000" color="#ECEFF1" hover-color="#CFD8DC" active-color="#607D8B" design="ring">
 					<!-- dot, ring, reticle, cross  -->
 				</a-gui-cursor> <!-- /cursor -->
-				<a-entity id ="dnd-textbox" position="-0.2 -0.5 -1" rotation="0 15 0" text="value: ;" pos-reader></a-entity>
+				<a-entity id="dnd-textbox" position="-0.2 -0.2 -1" rotation="0 15 0"
+					geometry="primitive: plane; height: 0.2; width: 1" material="color: #000000; opacity: 0.5"
+					text="value: ;" visible="false"></a-entity>
+				<a-entity id="dnd-help" position="-0.2 -0.2 -1" rotation="0 15 0" visible="false"
+					geometry="primitive: plane; height: 0.1; width: 1" material="color: #000000; opacity: 0.5"
+					text="value: Look down to read conversations in the background after pressing start;"></a-entity>
+				<a-entity id="debug" position="0 0 -1"  visible="true"
+					geometry="primitive: plane; height: 0.1; width: 1" material="color: #000000; opacity: 0.5"
+					text="value: ;"></a-entity>
 
 			</a-camera> <!-- /camera -->
 			<a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
@@ -113,6 +125,8 @@
 					handle-color="#E3F2FD" border-color="#0D47A1" font-color="#FFFFFF">
 				</a-gui-toggle>
 			</a-gui-flex-container>
+
+
 		</a-entity>
 
 	</a-scene>

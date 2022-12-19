@@ -17,14 +17,14 @@ const Attributes = {
     "look-at": "#camera",
     scale: "1 1 1",
     animation__start: "property: none; autoplay:false",
-    animation__pos: "property: position; to: 0 -0.7 -1; dur: 1000; easing: easeInOutQuint; autoplay: false",
+    animation__pos: "property: position; to: 0 -0.4 -1; dur: 1000; easing: easeInOutQuint; autoplay: false",
     animation__rot: "property: rotation; to: 0 0 0; dur: 0; delay: 300; easing: linear; autoplay: false",
     animation__scl: "property: scale; to: 0.3 0.3 1; dur: 1000; easing: easeInOutQuint; autoplay: false",
     animation__op: "property: opacity; from: 0.8; to: 0; dur: 1000; easing: easeInOutQuint; autoplay: false",
     animation__op2: "property: opacity; from: 0; to: 0.8; dur: 1000; easing: easeInOutQuint; delay: 300; autoplay: false",
     animation__op3: "property: opacity; from: 0.8; to: 0; dur: 1000; easing: easeInOutQuint; delay: 600; autoplay: false",
-    animation__pos2: "property: position; to: 0 -0.5 -1; dur: 500; autoplay: false",
-    animation__pos3: "property: position; to: 0 0 -1; dur: 500; autoplay: false",
+    animation__pos2: "property: position; to: 0 -0.2 -1; dur: 500; autoplay: false",
+    animation__pos3: "property: position; to: 0 0.3 -1; dur: 500; autoplay: false",
 };
 
 
@@ -137,6 +137,7 @@ window.start = function () {
         document.querySelectorAll(".caption").forEach(element => {
             element.setAttribute("in-view", '');
         });
+        dndTextbox.setAttribute("pos-reader", "");
     }
 }
 
@@ -163,6 +164,7 @@ window.reduce = function () {
 //toggle dnd mode
 window.dnd = function () {
     dndMode = !dndMode;
+    document.getElementById("dnd-help").setAttribute("visible", "true");
 };
 
 function startDnd() {
@@ -171,6 +173,10 @@ function startDnd() {
     this.classList.remove("caption");
     this.removeAttribute("in-view");
     this.removeEventListener("animationcomplete__start", startDnd);
+
+    setTimeout(function () {
+        document.getElementById("dnd-help").setAttribute("visible", "false");
+    }, 1000);
 
     //move not in view to textbox
     document.querySelectorAll(".caption").forEach(element => {
